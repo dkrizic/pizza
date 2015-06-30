@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.jms.*;
-import java.util.Enumeration;
 
 /**
  * Created by dkrizic on 30.06.15.
