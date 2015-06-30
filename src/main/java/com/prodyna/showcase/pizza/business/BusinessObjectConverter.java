@@ -13,7 +13,7 @@ public class BusinessObjectConverter {
     private JMSContext context;
 
     public BusinessObject convert(MapMessage mm) throws Exception {
-        Enumeration keys = mm.getMapNames();
+        Enumeration<?> keys = mm.getMapNames();
         BusinessObject bo = new BusinessObject();
         while (keys.hasMoreElements()) {
             String key = (String) keys.nextElement();

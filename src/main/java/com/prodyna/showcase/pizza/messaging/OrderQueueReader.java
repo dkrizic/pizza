@@ -2,13 +2,11 @@ package com.prodyna.showcase.pizza.messaging;
 
 import com.prodyna.showcase.pizza.business.BusinessObject;
 import com.prodyna.showcase.pizza.business.BusinessObjectConverter;
-import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.slf4j.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
-import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
