@@ -1,8 +1,9 @@
 package com.prodyna.showcase.pizza.messaging;
 
 import com.prodyna.showcase.pizza.business.Order;
+import com.prodyna.showcase.pizza.common.OrderAccepted;
+import com.prodyna.showcase.pizza.common.OrderRejected;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
@@ -14,10 +15,12 @@ public class OrderQueueWriter {
     @Inject
     private JMSContext context;
 
-    @Resource(lookup = "java:/jms/queue/PizzaOrderAccepted")
+    @Inject
+    @OrderAccepted
     private Queue orderAccept;
 
-    @Resource(lookup = "java:/jms/queue/PizzaOrderRejected")
+    @Inject
+    @OrderRejected
     private Queue orderReject;
 
     public void writeOrder(Order order, boolean accept) throws JMSException {

@@ -71,6 +71,7 @@ public class QueueSendReceiveTest {
     @Test
     @InSequence(3)
     public void checkAcceptQueue() throws Exception {
+        Thread.sleep( 2000 );
         final JMSConsumer consumer = context.createConsumer(orderAccept);
         MapMessage mm = (MapMessage) consumer.receive();
         Assert.assertEquals("Speciale", mm.getString(MessageKeys.DESCRIPTION) );
