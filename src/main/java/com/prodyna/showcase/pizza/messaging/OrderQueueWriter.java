@@ -27,4 +27,5 @@ public class OrderQueueWriter {
         mm.setString(MessageKeys.DESCRIPTION, order.getDescription());
         context.createProducer().send(accept ? orderAccept : orderReject, mm);
     }
+
 }
