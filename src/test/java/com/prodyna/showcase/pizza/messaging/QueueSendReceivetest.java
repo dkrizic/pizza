@@ -22,6 +22,10 @@ import java.util.Enumeration;
 @RunWith(Arquillian.class)
 public class QueueSendReceiveTest {
 
+    private static final String COUNT = "count";
+    private static final String NUMBER = "number";
+    private static final String DESCRIPTION = "description";
+
     @Inject
     private Logger log;
 
@@ -62,9 +66,9 @@ public class QueueSendReceiveTest {
     @InSequence(2)
     public void testOrder() throws Exception {
         MapMessage mm = context.createMapMessage();
-        mm.setInt(MessageKeys.COUNT, 1);
-        mm.setInt(MessageKeys.NUMBER, 42);
-        mm.setString(MessageKeys.DESCRIPTION, "Speciale");
+        mm.setInt(COUNT, 1);
+        mm.setInt(NUMBER, 42);
+        mm.setString(DESCRIPTION, "Speciale");
         context.createProducer().send(order, mm);
     }
 
@@ -74,7 +78,7 @@ public class QueueSendReceiveTest {
         Thread.sleep( 2000 );
         final JMSConsumer consumer = context.createConsumer(orderAccept);
         MapMessage mm = (MapMessage) consumer.receive();
-        Assert.assertEquals("Speciale", mm.getString(MessageKeys.DESCRIPTION) );
+        Assert.assertEquals("Speciale", mm.getString(DESCRIPTION) );
     }
 
 }

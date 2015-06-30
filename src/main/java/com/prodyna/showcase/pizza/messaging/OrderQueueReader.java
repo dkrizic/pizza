@@ -1,6 +1,8 @@
 package com.prodyna.showcase.pizza.messaging;
 
-import com.prodyna.showcase.pizza.business.Order;
+import com.prodyna.showcase.pizza.business.BusinessObject;
+import com.prodyna.showcase.pizza.business.BusinessObjectConverter;
+import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.slf4j.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -20,6 +22,12 @@ public class OrderQueueReader implements MessageListener {
     @Inject
     private Logger log;
 
+//    @Inject
+//    private BusinessProcess businessProcess;
+
+    @Inject
+    private BusinessObjectConverter converter;
+
     @Inject
     private OrderQueueWriter orderWriter;
 
@@ -29,13 +37,11 @@ public class OrderQueueReader implements MessageListener {
         if (message instanceof MapMessage) {
             try {
                 MapMessage mapMessage = (MapMessage) message;
-                Order order = new Order();
-                order.setCount(mapMessage.getInt(MessageKeys.COUNT));
-                order.setNumber(mapMessage.getInt(MessageKeys.NUMBER));
-                order.setDescription(mapMessage.getString(MessageKeys.DESCRIPTION));
-                log.info("Received order " + order);
-                orderWriter.writeOrder(order, true);
-            } catch (JMSException e) {
+                BusinessObject bo = converter.convert( mapMessage );
+                log.info("Received order " + bo);
+                // businessProcess.startProcessById()
+                orderWriter.writeOrder(bo, true);
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
